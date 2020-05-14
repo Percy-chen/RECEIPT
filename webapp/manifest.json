@@ -1,0 +1,368 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "FICO.RECEIPT",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		},
+		"dataSources": {
+			"API_CV_ATTACHMENT_SRV": {
+				"uri": "/destinations/WT_S4HC/API_CV_ATTACHMENT_SRV/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"API_DMS_PROCESS_SRV": {
+				"uri": "/destinations/WT_S4HC/API_DMS_PROCESS_SRV/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"EMPLOYEES.xsodata": {
+				"uri": "/destinations/APLEXHANA/EMPLOYEES.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"WORKFLOWLOG.xsodata": {
+				"uri": "/destinations/APLEXHANA/WORKFLOWLOG.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"YY1_CompanyCode_cds": {
+				"uri": "/destinations/WT_S4HC/YY1_CompanyCode_cds/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"YY1_SALEMAN_CDS": {
+				"uri": "/destinations/WT_S4HC/YY1_SALEMAN_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"BANKGLACCOUNTVH": {
+				"uri": "/destinations/WT_S4HC/YY1_BANKGLACCOUNTVH_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"RATEVH": {
+				"uri": "/destinations/WT_S4HC/YY1_RATEVH_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"CURRENCYVH": {
+				"uri": "/destinations/WT_S4HC/YY1_CURRVH_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"COMPANYCODECURR": {
+				"uri": "/destinations/WT_S4HC/YY1_COMPANYCODECURRVH_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"CUSTOMERVH": {
+				"uri": "/destinations/WT_S4HC/YY1_CUMTOMERVH_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"ONETIMECUSTOMERVH": {
+				"uri": "/destinations/WT_S4HC/YY1_ONETIMECUSTOMERH_CDS/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"RECEIPT.xsodata": {
+				"uri": "/destinations/APLEXHANA/RECEIPT.xsodata/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			},
+			"API_OPLACCTGDOCITEMCUBE_SRV": {
+				"uri": "/destinations/WT_S4HC/API_OPLACCTGDOCITEMCUBE_SRV/",
+				"type": "OData",
+				"settings": {
+					"annotations": []
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "FICO.RECEIPT.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"minUI5Version": "1.65.6",
+			"libs": {
+				"sap.ui.layout": {},
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "FICO.RECEIPT.i18n.i18n"
+				}
+			},
+			"currentUser": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "/services/userapi/currentUser",
+				"preload": false
+			},
+			"userAttributes": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"preload": false,
+				"uri": "/services/userapi/attributes"
+			},
+			"Attach": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "API_CV_ATTACHMENT_SRV",
+				"preload": true
+			},
+			"DIR": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "API_DMS_PROCESS_SRV",
+				"preload": true
+			},
+			"GetEMPLOYEES": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "EMPLOYEES.xsodata",
+				"preload": true
+			},
+			"WORKFLOWLOG": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "WORKFLOWLOG.xsodata",
+				"preload": true
+			},
+			"COMPANYNAME": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "YY1_CompanyCode_cds",
+				"preload": true
+			},
+			"BANKGLACCOUNTVH": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "BANKGLACCOUNTVH",
+				"preload": true
+			},
+			"RATEVH": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "RATEVH",
+				"preload": true
+			},
+			"CURRENCYVH": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "CURRENCYVH",
+				"preload": true
+			},
+			"COMPANYCODECURR": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "COMPANYCODECURR",
+				"preload": true
+			},
+			"CUSTOMERVH": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "CUSTOMERVH",
+				"preload": true
+			},
+			"ONETIMECUSTOMERVH": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "ONETIMECUSTOMERVH",
+				"preload": true
+			},
+			"SALEMAN": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "YY1_SALEMAN_CDS",
+				"preload": true
+			},
+			"RECEIPT": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "RECEIPT.xsodata",
+				"preload": true
+			},
+			"ACCTGDOC": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneWay",
+					"defaultCountMode": "Request",
+					"useBatch": true
+				},
+				"dataSource": "API_OPLACCTGDOCITEMCUBE_SRV",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "FICO.RECEIPT.view",
+				"controlAggregation": "pages",
+				"controlId": "appNavContainer",
+				"clearControlAggregation": false
+			},
+			"routes": [
+				{
+					"name": "AR_SUBMIT",
+					"pattern": "",
+					"target": [
+						"AR_SUBMIT"
+					]
+				}
+			],
+			"targets": {
+				"AR_SUBMIT": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "AR_SUBMIT",
+					"viewName": "AR_SUBMIT"
+				}
+			}
+		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
+	}
+}

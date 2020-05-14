@@ -1,0 +1,212 @@
+<mvc:View controllerName="FICO.RECEIPT.controller.AR_SUBMIT" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:unified="sap.ui.unified"
+	xmlns:ux="sap.uxap" xmlns:core="sap.ui.core">
+	<App id="app">
+		<Page id="page" title="{i18n>title}">
+			<content>
+				<f:Form editable="true">
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="2"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Flow}:" width="6em" textAlign="Begin"/>
+											<Input id="Flow" value="{/REData/FLOW}" editable="false"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>ApplicationDate}:" width="6em" textAlign="Begin"/>
+											<DatePicker id="ApplicationDate" value="{path:'/REData/APPLICATIONDATE'}" valueFormat="yyyy-MM-dd" placeholder=" "
+												displayFormat="yyyy-MM-dd" class="sapUiSmallMarginBottom"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Applicant}:" width="6em" textAlign="Begin"/>
+											<Input id="Applicant" value="{/REData/APPLICANT}" editable="false"/>
+											<Text text="{/REData/APPLICANTNAME}"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="{i18n>CompanyCode}:" width="6em" textAlign="Begin"/>
+											<Input id="CompanyCode" value="{/REData/COMPANYCODE}" editable="false" width="5em"/>
+											<Text text="{/REData/COMPANYNAME}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>BankAccount}:" width="6em" textAlign="Begin"/>
+											<Input id="BankAccount" value="{/REData/BANKACCOUNT}" width="12em" showValueHelp="true" valueHelpRequest="onSearchBankAccount"
+												valueHelpOnly="false" change="handleChangeB"/>
+											<Text text="{/REData/BANKACCOUNTDES}"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Customer}:" width="6em" textAlign="Begin"/>
+											<Input id="Customer" value="{/REData/CUSTOMER}" width="10.8em" showValueHelp="true" valueHelpRequest="onSearchCustomer"
+												valueHelpOnly="false" change="handleChangeC"/>
+											<Text text="{/REData/CUSTOMERNAME}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Saleman}:" width="6em" textAlign="Begin"/>
+											<Input id="Saleman" value="{/REData/SALEMAN}" width="12em"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Assignment}:" width="6em" textAlign="Begin"/>
+											<Input id="Assignment" value="{/REData/ASSIGNMENT}"/>
+										</l:HorizontalLayout>
+										<!--<l:HorizontalLayout>-->
+										<!--	<Text text="{i18n>oneTimeCustomer}:" width="6em" textAlign="Begin"/>-->
+										<!--	<Input id="ONETIMECUSTOMER" value="{/REData/ONETIMECUSTOMER}" editable="false" width="4em"/>-->
+										<!--</l:HorizontalLayout>-->
+										<!--<l:HorizontalLayout>-->
+										<!--	<Text text="{i18n>oneTimeCustomerName}:" width="6em" textAlign="Begin"/>-->
+										<!--	<Input id="ONETIMECUSTOMERNAME" value="{/REData/ONETIMECUSTOMERNAME}" showValueHelp="true" valueHelpRequest="onSearchOneCustomer"-->
+										<!--		valueHelpOnly="false"/>-->
+										<!--</l:HorizontalLayout>-->
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="{i18n>NetDueDate}:" width="6em" textAlign="Begin"/>
+											<DatePicker id="NetDueDate" value="{path:'/REData/NETDUEDATE'}" width="10.8em" valueFormat="yyyy-MM-dd" placeholder=" "
+												displayFormat="yyyy-MM-dd" class="sapUiSmallMarginBottom"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>BillNumber}:" width="6em" textAlign="Begin"/>
+											<Input id="BILLNUMBER" value="{/REData/BILLNUMBER}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Currency}:" width="3em" textAlign="Begin"/>
+											<!--<ComboBox showSecondaryValues="true" id="Currency" items="{ path: '/CurrencyList', sorter: { path: 'Currency' } }"-->
+											<!--	selectionChange="onChangeCurr" width="6em">-->
+											<!--	<core:ListItem key="{key}" text="{Currency}" additionalText="{CurrencyName}"/>-->
+											<!--	<layoutData>-->
+											<!--		<l:GridData span="L2 M2 S2"/>-->
+											<!--	</layoutData>-->
+											<!--</ComboBox>-->
+											<Input id="Currency" value="{/REData/CURRENCY}" width="5em" showValueHelp="true" valueHelpRequest="onSearchCurrency" valueHelpOnly="false"
+												change="changeNCY">
+												<layoutData>
+													<l:GridData span="L2 M2 S2"/>
+												</layoutData>
+											</Input>
+											<Text text="/{i18n>Rate}:" textAlign="Center" width="3em"/>
+											<Input id="Rate" value="{/REData/RATE}" width="6em"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<!--收款金额-->
+											<Text text="{i18n>ReceivingAmountTrans}:" width="6em" textAlign="Begin"/>
+											<Input id="ReceivingAmountTrans" value="{path:'/REData/RAMOUNTT',type: 'sap.ui.model.type.Float'}" change="changeMoneyToChinese"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>ReceivingAmountLocal}:" width="6em" textAlign="Begin"/>
+											<Input id="ReceivingAmountLocal" value="{path:'/REData/RAMOUNTL',type: 'sap.ui.model.type.Float'}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>CurrUpperCase}:" width="6em" textAlign="Begin"/>
+											<Input id="CurrUpperCase1" value="{/REData/CurrUpperCase1}"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<!--手续费(国内)-->
+											<Text text="{i18n>ChargeInlandTrans}:" width="6em" textAlign="Begin"/>
+											<Input id="ChargeInlandTrans" value="{path:'/REData/CHARGEINLANDT',type: 'sap.ui.model.type.Float'}" change="changeMoneyToChinese"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>ChargeInlandLocal}:" width="6em" textAlign="Begin"/>
+											<Input id="ChargeInlandLocal" value="{path:'/REData/CHARGEINLANDL',type: 'sap.ui.model.type.Float'}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>CurrUpperCase}:" width="6em" textAlign="Begin"/>
+											<Input id="CurrUpperCase2" value="{/REData/CurrUpperCase2}"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<!--手续费(国外)-->
+											<Text text="{i18n>ChargeForeignTrans}:" width="6em" textAlign="Begin"/>
+											<Input id="ChargeForeignTrans" value="{path:'/REData/CHARGEFOREIGNT',type: 'sap.ui.model.type.Float'}" change="changeMoneyToChinese"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>ChargeForeignLocal}:" width="6em" textAlign="Begin"/>
+											<Input id="ChargeForeignLocal" value="{path:'/REData/CHARGEFOREIGNL',type: 'sap.ui.model.type.Float'}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>CurrUpperCase}:" width="6em" textAlign="Begin"/>
+											<Input id="CurrUpperCase3" value="{/REData/CurrUpperCase3}"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<!--邮资款-->
+											<Text text="{i18n>PostageExpense}:" width="6em" textAlign="Begin"/>
+											<Input id="PostageExpense" value="{path:'/REData/POSTAGEEXPENSE',type: 'sap.ui.model.type.Float'}" change="changeMoneyToChinese"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>ChargeInlandLocal}:" width="6em" textAlign="Begin"/>
+											<Input id="PostageExpenseL" value="{path:'/REData/POSTAGEEXPENSEL',type: 'sap.ui.model.type.Float'}"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="{i18n>CurrUpperCase}:" width="6em" textAlign="Begin"/>
+											<Input id="CurrUpperCase4" value="{/REData/CurrUpperCase4}"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="{i18n>Note}:" width="6em" textAlign="Begin"/>
+											<Input id="Note" value="{/REData/NOTE}" width="30em"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+				<UploadCollection id="UploadCollectionAttach" multiple="true" change="onChange" fileDeleted="onFileDeleted" fileType="{fileTypes>/selected}"
+					selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
+					beforeUploadStarts="onBeforeUploadStarts" uploadTerminated="onUploadTerminated" items="{Attach>DocumentInfoRecordToAttachmentNavigation}"
+					showSeparators="{settings>/showSeparators}" uploadEnabled="true" mode="{settings>/mode}" instantUpload="false"
+					uploadUrl="/destinations/WT_S4HC/API_CV_ATTACHMENT_SRV/AttachmentContentSet">
+					<items>
+						<UploadCollectionItem documentId="{Attach>ArchiveDocumentID}" fileName="{Attach>FileName}" mimeType="{Attach>MimeType}"
+							url="{path:'Attach>__metadata/media_src',formatter:'.getMediaUrl'}" enableEdit="{settings>/enableEdit}"
+							enableDelete="{settings>/enableDelete}" visibleDelete="{settings>/visibleDelete}" visibleEdit="{settings>/visibleEdit}"
+							deletePress="ondeletePress"></UploadCollectionItem>
+					</items>
+				</UploadCollection>
+			</content>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="{i18n>Submit}" id="butSubmit" type="Accept" press="handleSubmit" width="6rem"/>
+					<Button text="{i18n>Cancel}" id="butCancel" type="Reject" press="handleCancel" width="6rem"/>
+					<!--<Button text="查询" id="butSearch" type="Reject" press="handleSearch" width="6rem"/>-->
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</App>
+</mvc:View>

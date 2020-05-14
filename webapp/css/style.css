@@ -1,0 +1,6 @@
+/* Enter your custom styles here */
+.sapUiHLayoutChildWrapper {
+    white-space: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
